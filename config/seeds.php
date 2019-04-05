@@ -3,11 +3,12 @@
 return [
 
     'user' => [
-        'number' => 5,
+        'create' => 5,
     ],
 
     'key' => [
-        'number' => 100,
+        'create' => 5,
+        'insert' => 100,
     ],
 
 ];

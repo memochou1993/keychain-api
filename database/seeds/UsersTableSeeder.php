@@ -14,6 +14,6 @@ class UsersTableSeeder extends Seeder
     {
         User::create(config('factories.user'));
 
-        factory(User::class, config('seeds.user.number'))->create();
+        factory(User::class, config('seeds.user.create'))->create();
     }
 }

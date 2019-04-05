@@ -12,8 +12,10 @@ class KeysTableSeeder extends Seeder
      */
     public function run()
     {
-        $records = factory(Key::class, config('seeds.key.number'))->make();
+        factory(Key::class, config('seeds.key.create'))->create([
+            'user_id' => config('api.debug.user.id'),
+        ]);
 
-        Key::insert($records->toArray());
+        Key::insert(factory(Key::class, config('seeds.key.insert'))->make()->toArray());
     }
 }

@@ -18,6 +18,7 @@ class KeyResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'content' => $this->content,
+            'password' => (bool) $this->password,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
             'user' => new UserResource($this->whenLoaded('user')),
