@@ -25,6 +25,11 @@ class KeyRepository implements KeyInterface
     protected $with;
 
     /**
+     * @var int
+     */
+    protected $paginate;
+
+    /**
      * Create a new repository instance.
      *
      * @param  \App\Key  $key
@@ -39,6 +44,8 @@ class KeyRepository implements KeyInterface
         $this->with = $this->request->with
             ? explode(',', $this->request->with)
             : [];
+
+        $this->paginate = (int) $this->request->paginate;
     }
 
     /**
@@ -63,7 +70,7 @@ class KeyRepository implements KeyInterface
         $keys = $this->key
             ->search($q)
             ->where('user_id', $user->id)
-            ->paginate($this->request->paginate);
+            ->paginate($this->paginate);
 
         return $keys;
     }
@@ -82,7 +89,7 @@ class KeyRepository implements KeyInterface
                 $query->where('title', 'like', "%{$q}%");
             })
             ->with($this->with)
-            ->paginate($this->request->paginate);
+            ->paginate($this->paginate);
 
         return $keys;
     }
