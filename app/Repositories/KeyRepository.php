@@ -5,9 +5,15 @@ namespace App\Repositories;
 use App\Key;
 use App\User;
 use App\Contracts\KeyInterface;
+use App\Http\Requests\KeyRequest as Request;
 
 class KeyRepository implements KeyInterface
 {
+    /**
+     * @var \App\Http\Requests\KeyRequest
+     */
+    protected $request;
+
     /**
      * @var \App\Key
      */
@@ -19,8 +25,10 @@ class KeyRepository implements KeyInterface
      * @param  \App\Key  $key
      * @return void
      */
-    public function __construct(Key $key)
+    public function __construct(Request $request, Key $key)
     {
+        $this->request = $request;
+
         $this->key = $key;
     }
 
@@ -29,6 +37,12 @@ class KeyRepository implements KeyInterface
      */
     public function getKeysByUser(User $user)
     {
-        return $user->keys()->paginate();
+        $q = $this->request->q;
+
+        return $user->keys()
+            ->where(function ($query) use ($q) {
+                $query->where('title', 'like', "%{$q}%");
+            })
+            ->paginate();
     }
 }

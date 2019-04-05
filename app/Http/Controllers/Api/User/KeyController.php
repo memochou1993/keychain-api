@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Key;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Http\Requests\KeyRequest as Request;
 use App\Contracts\KeyInterface as Repository;
+use App\Http\Resources\KeyResource as Resource;
 
 class KeyController extends Controller
 {
@@ -14,6 +15,11 @@ class KeyController extends Controller
      * @var \App\User
      */
     protected $user;
+
+    /**
+     * @var \App\Http\Requests\KeyRequest
+     */
+    protected $request;
 
     /**
      * @var \App\Contracts\KeyInterface
@@ -26,9 +32,11 @@ class KeyController extends Controller
      * @param  \App\Contracts\KeyInterface  $reposotory
      * @return void
      */
-    public function __construct(Repository $reposotory)
+    public function __construct(Request $request, Repository $reposotory)
     {
         $this->user = User::find(1);
+
+        $this->request = $request;
 
         $this->reposotory = $reposotory;
     }
@@ -40,7 +48,9 @@ class KeyController extends Controller
      */
     public function index()
     {
-        return $this->reposotory->getKeysByUser($this->user);
+        $keys = $this->reposotory->getKeysByUser($this->user);
+
+        return Resource::collection($keys);
     }
 
     /**
