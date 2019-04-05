@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69e26e819793dea46f7ded0c20cee8d7",
+    "content-hash": "64735ca23395be4b52365b782b48cfe6",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
