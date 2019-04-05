@@ -27,7 +27,17 @@ class KeyRequest extends FormRequest
         switch($this->method()) {
             case 'GET':
                 return [
-                    //
+                    'with' => [
+                        new ElementsInArray([
+                            'user',
+                        ]),
+                        'nullable',
+                    ],
+                    'paginate' => [
+                        'integer',
+                        'min:1',
+                        'nullable',
+                    ],
                 ];
 
             case 'POST':

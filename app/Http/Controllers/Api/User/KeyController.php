@@ -44,7 +44,7 @@ class KeyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\KeyResource
      */
     public function index()
     {
@@ -54,58 +54,41 @@ class KeyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\KeyResource
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $key = $this->reposotory->storeKeyByUser($this->user);
+
+        return new Resource($key);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Key  $key
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\KeyResource
      */
     public function show(Key $key)
     {
-        //
-    }
+        $keys = $this->reposotory->getKeyByUser($this->user, $key->id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Key  $key
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Key $key)
-    {
-        //
+        return new Resource($keys);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Key  $key
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\KeyResource
      */
-    public function update(Request $request, Key $key)
+    public function update(Key $key)
     {
-        //
+        $key = $this->reposotory->updateKey($key);
+
+        return new Resource($key);
     }
 
     /**
@@ -116,6 +99,8 @@ class KeyController extends Controller
      */
     public function destroy(Key $key)
     {
-        //
+        $this->reposotory->destroyKey($key);
+
+        return response(null, 204);
     }
 }

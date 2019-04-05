@@ -14,4 +14,12 @@ class Key extends Model
     protected $fillable = [
         'title', 'content',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
