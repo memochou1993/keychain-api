@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Key;
 use App\User;
 use Laravel\Passport\Passport;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\KeyRequest as Request;
 use App\Contracts\KeyInterface as Repository;
 use App\Http\Resources\KeyResource as Resource;
