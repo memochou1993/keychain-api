@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Key;
 use App\User;
+use Laravel\Passport\Passport;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\KeyRequest as Request;
 use App\Contracts\KeyInterface as Repository;
@@ -34,7 +35,9 @@ class KeyController extends Controller
      */
     public function __construct(Request $request, Repository $reposotory)
     {
-        $this->user = User::find(1);
+        $this->user = config('api.debug.enabled')
+            ? Passport::actingAs(User::find(config('api.debug.user.id')))
+            : $this->auth('api')->user(); 
 
         $this->request = $request;
 

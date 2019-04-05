@@ -29,6 +29,7 @@ class KeyRequest extends FormRequest
                 return [
                     'search' => [
                         'boolean',
+                        'nullable',
                     ],
                     'with' => [
                         new ElementsInArray([
