@@ -27,6 +27,9 @@ class KeyRequest extends FormRequest
         switch($this->method()) {
             case 'GET':
                 return [
+                    'search' => [
+                        'boolean',
+                    ],
                     'with' => [
                         new ElementsInArray([
                             'user',

@@ -56,17 +56,35 @@ class KeyRepository implements KeyInterface
      * @param  \App\User  $user
      * @return \App\Key
      */
+    public function searchKeysByUser(User $user)
+    {
+        $q = $this->request->q;
+
+        $keys = $this->key
+            ->search($q)
+            ->where('user_id', $user->id)
+            ->paginate($this->request->paginate);
+
+        return $keys;
+    }
+
+    /**
+     * @param  \App\User  $user
+     * @return \App\Key
+     */
     public function getKeysByUser(User $user)
     {
         $q = $this->request->q;
 
-        return $user
+        $keys = $user
             ->keys()
             ->where(function ($query) use ($q) {
                 $query->where('title', 'like', "%{$q}%");
             })
             ->with($this->with)
             ->paginate($this->request->paginate);
+
+        return $keys;
     }
 
     /**
@@ -76,10 +94,12 @@ class KeyRepository implements KeyInterface
      */
     public function getKeyByUser(User $user, int $id)
     {
-        return $user
+        $key = $user
             ->keys()
             ->with($this->with)
             ->findOrFail($id);
+
+        return $key;
     }
 
     /**

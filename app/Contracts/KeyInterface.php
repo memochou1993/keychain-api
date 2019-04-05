@@ -13,11 +13,11 @@ interface KeyInterface
      */
     public function getKey(int $id);
 
-    // /**
-    //  * @param  \App\User  $user
-    //  * @return \App\Key
-    //  */
-    // public function searchKeysByUser(User $user);
+    /**
+     * @param  \App\User  $user
+     * @return \App\Key
+     */
+    public function searchKeysByUser(User $user);
 
     /**
      * @param  \App\User  $user

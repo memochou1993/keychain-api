@@ -48,7 +48,11 @@ class KeyController extends Controller
      */
     public function index()
     {
-        $keys = $this->reposotory->getKeysByUser($this->user);
+        $method = $this->request->search
+            ? 'searchKeysByUser'
+            : 'getKeysByUser';
+
+        $keys = $this->reposotory->$method($this->user);
 
         return Resource::collection($keys);
     }
