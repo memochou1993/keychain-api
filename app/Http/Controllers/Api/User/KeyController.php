@@ -6,6 +6,7 @@ use App\Key;
 use App\User;
 use Laravel\Passport\Passport;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\KeyRequest as Request;
 use App\Contracts\KeyInterface as Repository;
 use App\Http\Resources\KeyResource as Resource;
@@ -80,9 +81,13 @@ class KeyController extends Controller
      */
     public function show(Key $key)
     {
-        $keys = $this->reposotory->getKeyByUser($this->user, $key->id);
+        $key = $this->reposotory->getKeyByUser($this->user, $key->id);
 
-        return new Resource($keys);
+        if (!Hash::check($this->request->password, $key->password)) {
+            abort(404);
+        };
+
+        return new Resource($key);
     }
 
     /**

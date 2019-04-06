@@ -21,5 +21,6 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::namespace('User')->middleware('auth:api')->prefix('users/me')->group(function () {
-    Route::resource('keys', 'KeyController')->except(['create', 'edit']);
+    Route::post('keys/{key}', 'KeyController@show')->name('keys.show');
+    Route::resource('keys', 'KeyController')->except(['create', 'show', 'edit']);
 });

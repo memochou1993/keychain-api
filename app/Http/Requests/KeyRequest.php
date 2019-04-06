@@ -24,8 +24,10 @@ class KeyRequest extends FormRequest
      */
     public function rules()
     {
-        switch($this->method()) {
-            case 'GET':
+        $route = $this->route() ? $this->route()->getName() : null;
+
+        switch($route) {
+            case 'keys.index':
                 return [
                     'search' => [
                         'boolean',
@@ -44,9 +46,15 @@ class KeyRequest extends FormRequest
                     ],
                 ];
 
-            case 'POST':
-            case 'PUT':
-            case 'PATCH':
+            case 'keys.show':
+                return [
+                    'password' => [
+                        'required',
+                    ],
+                ];
+
+            case 'keys.store':
+            case 'keys.update':
                 return [
                     'title' => [
                         'required',

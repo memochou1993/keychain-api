@@ -91,8 +91,11 @@ class KeyControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Accept' => 'application/json',
-        ])->get(
-            "/api/users/me/keys/{$key->id}?with=user"
+        ])->post(
+            "/api/users/me/keys/{$key->id}?with=user",
+            [
+                'password' => 'secret',
+            ]
         );
 
         // $this->dd($response);
