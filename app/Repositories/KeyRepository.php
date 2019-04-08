@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Key;
 use App\User;
 use App\Contracts\KeyInterface;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\KeyRequest as Request;
 
 class KeyRepository implements KeyInterface
@@ -117,7 +119,10 @@ class KeyRepository implements KeyInterface
     {
         $key = $user
             ->keys()
-            ->create($this->request->all());
+            ->create($this->request->merge([
+                'content' => Crypt::encrypt($this->request->content),
+                'password' => Hash::make($this->request->password),
+            ])->all());
 
         return $this->getKey($key->id);
     }
