@@ -88,6 +88,9 @@ class KeyRepository implements KeyInterface
         $keys = $user
             ->keys()
             ->where(function ($query) use ($q) {
+                if (!$q) {
+                    return;
+                }
                 $query->where('title', 'like', "%{$q}%");
             })
             ->with($this->with)
