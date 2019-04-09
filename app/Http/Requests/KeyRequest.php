@@ -29,10 +29,6 @@ class KeyRequest extends FormRequest
         switch($route) {
             case 'keys.index':
                 return [
-                    'search' => [
-                        'boolean',
-                        'nullable',
-                    ],
                     'with' => [
                         new ElementsInArray([
                             'user',
@@ -44,12 +40,19 @@ class KeyRequest extends FormRequest
                         'min:1',
                         'nullable',
                     ],
+                    'scout' => [
+                        'boolean',
+                        'nullable',
+                    ],
                 ];
 
             case 'keys.show':
                 return [
-                    'password' => [
-                        'required',
+                    'with' => [
+                        new ElementsInArray([
+                            'user',
+                        ]),
+                        'nullable',
                     ],
                 ];
 
@@ -61,6 +64,12 @@ class KeyRequest extends FormRequest
                     ],
                     'content' => [
                         'required',
+                    ],
+                    'with' => [
+                        new ElementsInArray([
+                            'user',
+                        ]),
+                        'nullable',
                     ],
                 ];
 

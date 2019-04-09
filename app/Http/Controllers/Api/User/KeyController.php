@@ -52,7 +52,7 @@ class KeyController extends Controller
      */
     public function index()
     {
-        $method = $this->request->search
+        $method = $this->request->scout
             ? 'searchKeysByUser'
             : 'getKeysByUser';
 
@@ -83,7 +83,7 @@ class KeyController extends Controller
     {
         $key = $this->reposotory->getKeyByUser($this->user, $key->id);
 
-        if (!Hash::check($this->request->password, $key->password)) {
+        if ($key->password && !Hash::check($this->request->password, $key->password)) {
             abort(404);
         };
 
