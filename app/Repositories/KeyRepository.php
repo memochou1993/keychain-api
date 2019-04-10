@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Key;
 use App\User;
 use App\Contracts\KeyInterface;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\KeyRequest as Request;
 
