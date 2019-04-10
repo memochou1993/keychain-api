@@ -120,12 +120,15 @@ class KeyRepository implements KeyInterface
      */
     public function storeKeyByUser(User $user)
     {
+        $content = Crypt::encrypt($this->request->content);
+        $password = $this->request->password ? Hash::make($this->request->password) : null;
+
         $key = $user
             ->keys()
-            ->create($this->request->merge([
-                'content' => Crypt::encrypt($this->request->content),
-                'password' => Hash::make($this->request->password),
-            ])->all());
+            ->create($this->request->merge(compact([
+                'content',
+                'password',
+            ]))->all());
 
         return $this->getKey($key->id);
     }
@@ -136,7 +139,13 @@ class KeyRepository implements KeyInterface
      */
     public function updateKey(Key $key)
     {
-        $key->update($this->request->all());
+        $content = Crypt::encrypt($this->request->content);
+        $password = $this->request->password ? Hash::make($this->request->password) : null;
+
+        $key->update($this->request->merge(compact([
+            'content',
+            'password',
+        ]))->all());
 
         return $this->getKey($key->id);
     }
