@@ -93,6 +93,7 @@ class KeyRepository implements KeyInterface
                 $query->where('title', 'like', "%{$q}%");
             })
             ->with($this->with)
+            ->orderBy('id', 'desc')
             ->paginate($this->paginate);
 
         return $keys;
