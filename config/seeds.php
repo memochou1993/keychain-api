@@ -7,7 +7,7 @@ return [
     ],
 
     'key' => [
-        'create' => 20,
+        'create' => 200,
         'insert' => 100,
     ],
 
