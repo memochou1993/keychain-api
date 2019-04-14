@@ -17,7 +17,7 @@ class CreateKeysTable extends Migration
             $table->bigIncrements('id');
             $table->string('title')->index();
             $table->text('content');
-            $table->string('password')->nullable();
+            $table->string('password')->default('');
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
