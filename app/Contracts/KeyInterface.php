@@ -39,10 +39,11 @@ interface KeyInterface
     public function storeKeyByUser(User $user);
 
     /**
-     * @param  \App\Key  $key
+     * @param  \App\User  $user
+     * @param  int  $id
      * @return \App\Key
      */
-    public function updateKey(Key $key);
+    public function updateKeyByUser(User $user, int $id);
 
     /**
      * @param  \App\Key  $key

@@ -98,7 +98,7 @@ class KeyController extends Controller
      */
     public function update(Key $key)
     {
-        $key = $this->reposotory->updateKey($key);
+        $key = $this->reposotory->updateKeyByUser($this->user, $key->id);
 
         return new Resource($key);
     }
