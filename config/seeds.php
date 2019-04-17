@@ -7,8 +7,8 @@ return [
     ],
 
     'key' => [
-        'create' => 50,
-        'insert' => 50,
+        'create' => 25,
+        'insert' => 25,
     ],
 
 ];
