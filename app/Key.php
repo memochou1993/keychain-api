@@ -15,7 +15,7 @@ class Key extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'content', 'password'
+        'title', 'content', 'link', 'password'
     ];
 
     /**
