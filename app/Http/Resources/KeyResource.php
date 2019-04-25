@@ -18,8 +18,8 @@ class KeyResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'link' => $this->link,
             'content' => Crypt::decrypt($this->content),
+            'link' => $this->link,
             'password' => (bool) $this->password,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
