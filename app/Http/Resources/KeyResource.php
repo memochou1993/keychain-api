@@ -20,7 +20,7 @@ class KeyResource extends JsonResource
             'title' => $this->title,
             'content' => Crypt::decrypt($this->content),
             'link' => $this->link,
-            'password' => (bool) $this->password,
+            'lock' => (bool) $this->password,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
             'user' => new UserResource($this->whenLoaded('user')),
