@@ -20,7 +20,9 @@ Route::prefix('auth')->group(function () {
     Route::get('user', 'AuthController@user')->middleware('auth:api');
 });
 
-Route::namespace('User')->middleware('auth:api')->prefix('users/me')->group(function () {
+Route::resource('users', 'UserController')->middleware('auth:api');
+
+Route::namespace('User')->middleware('auth:api')->prefix('users/me')->name('users.me.')->group(function () {
     Route::post('keys/{key}', 'KeyController@show')->name('keys.show');
     Route::resource('keys', 'KeyController')->except(['create', 'show', 'edit']);
 });

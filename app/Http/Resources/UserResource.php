@@ -20,6 +20,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
+            'keys' => KeyResource::collection($this->whenLoaded('keys')),
         ];
     }
 }
