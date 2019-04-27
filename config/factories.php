@@ -3,6 +3,7 @@
 return [
 
     'user' => [
+        'id' => 1,
         'name' => 'Administrator',
         'email' => 'admin@email.com',
         'email_verified_at' => now(),
