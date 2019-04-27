@@ -41,6 +41,8 @@ class UserController extends Controller
         $this->request = $request;
 
         $this->reposotory = $reposotory;
+
+        $this->authorizeResource(User::class);
     }
 
     /**
@@ -71,6 +73,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        // $this->authorize('view', $user);
+
         $user = $this->reposotory->getUser($user->id);
 
         return new Resource($user);
