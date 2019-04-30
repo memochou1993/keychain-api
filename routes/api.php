@@ -13,11 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('auth')->group(function () {
+Route::prefix('auth')->name('auth.')->group(function () {
     // Route::post('register', 'AuthController@register');
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout')->middleware('auth:api');
-    Route::get('user', 'AuthController@user')->middleware('auth:api');
+    Route::post('login', 'AuthController@login')->name('login');
+    Route::post('logout', 'AuthController@logout')->name('logout')->middleware('auth:api');
+    Route::get('user', 'AuthController@user')->name('user')->middleware('auth:api');
+    Route::post('password/reset', 'AuthController@resetPassword')->name('password.reset')->middleware('auth:api');
 });
 
 Route::resource('users', 'UserController')->middleware('auth:api');

@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Exception\ClientException;
+use App\Http\Requests\AuthRequest as Request;
 
 class AuthController extends Controller
 {
     /**
-     * @var \Illuminate\Http\Request
+     * @var \App\Http\Requests\AuthRequest
      */
     protected $request;
 
@@ -89,5 +90,38 @@ class AuthController extends Controller
         $user = $this->auth('api')->user();
 
         return new UserResource($user);
+    }
+
+    /**
+     * @return \App\User
+     */
+    public function resetPassword()
+    {
+        $user = $this->auth('api')->user();
+
+        if (!Hash::check($this->request->old_password, $user->password)) {
+            abort(401);
+        }
+
+        try {
+            $client = new Client([
+                'base_uri' => config('app.url'),
+            ]);
+
+            $response = $client->patch('/api/users/'.$user->id, [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Authorization' => $this->request->header('Authorization'),
+                ],
+                'form_params' => [
+                    'name' => $this->request->name,
+                    'password' => $this->request->new_password,
+                ],
+            ]);
+
+            return response($response->getBody(), 200);
+        } catch (ClientException $e) {
+            return $e->getResponse();
+        }
     }
 }

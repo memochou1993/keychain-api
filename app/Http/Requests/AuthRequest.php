@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\ElementsInArray;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class AuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,24 +26,15 @@ class UserRequest extends FormRequest
         $route = $this->route() ? $this->route()->getName() : null;
 
         switch($route) {
-            case 'users.show':
+            case 'auth.password.reset':
                 return [
-                    'with' => [
-                        new ElementsInArray([
-                            'keys',
-                        ]),
-                        'nullable',
-                    ],
-                ];
-
-            case 'users.update':
-                return [
-                    'name' => [
+                    'old_password' => [
+                        'min:8',
                         'required',
                     ],
-                    'password' => [
+                    'new_password' => [
                         'min:8',
-                        'nullable',
+                        'required',
                     ],
                 ];
 
