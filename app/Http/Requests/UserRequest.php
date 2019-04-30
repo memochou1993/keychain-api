@@ -37,6 +37,17 @@ class UserRequest extends FormRequest
                     ],
                 ];
 
+            case 'users.update':
+                return [
+                    'name' => [
+                        'required',
+                    ],
+                    'password' => [
+                        'min:8',
+                        'nullable'
+                    ],
+                ];
+
             default:
                 return [
                     //

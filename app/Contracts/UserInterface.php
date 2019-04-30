@@ -9,4 +9,10 @@ interface UserInterface
      * @return \App\User
      */
     public function getUser(int $id);
+
+    /**
+     * @param  int  $id
+     * @return \App\User
+     */
+    public function updateUser(int $id);
 }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\User;
 use App\Contracts\UserInterface;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest as Request;
 
 class UserRepository implements UserInterface
@@ -56,5 +57,21 @@ class UserRepository implements UserInterface
         return $this->user
             ->with($this->with)
             ->findOrFail($id);
+    }
+
+    /**
+     * @param  int  $id
+     * @return \App\User
+     */
+    public function updateUser(int $id)
+    {
+        $user = $this->getUser($id);
+
+        $user->update($this->request->merge([
+            'name' => $this->request->name,
+            'password' => $this->request->password ? Hash::make($this->request->password) : $user->password,
+        ])->all());
+
+        return $user;
     }
 }
