@@ -124,7 +124,7 @@ class KeyRepository implements KeyInterface
             ->keys()
             ->create($this->request->merge([
                 'content' => Crypt::encrypt($this->request->content),
-                'password' => $this->request->lock ? $user->password : '',
+                'password' => $this->request->lock,
             ])->all());
 
         return $this->getKey($key->id);

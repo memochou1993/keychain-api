@@ -83,7 +83,7 @@ class KeyController extends Controller
     {
         $key = $this->reposotory->getKeyByUser($this->user, $key->id);
 
-        if ($this->request->check && !Hash::check($this->request->password, $key->password)) {
+        if ($this->request->check && !Hash::check($this->request->password, $key->user->password)) {
             abort(404);
         };
 
