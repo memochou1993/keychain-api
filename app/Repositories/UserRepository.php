@@ -54,9 +54,21 @@ class UserRepository implements UserInterface
      */
     public function getUser(int $id)
     {
-        return $this->user
+        $user = $this->user
             ->with($this->with)
             ->findOrFail($id);
+
+        return $user;
+    }
+
+    /**
+     * @return \App\User
+     */
+    public function storeUser()
+    {
+        $user = $this->user->create($this->request->all());
+
+        return $user;
     }
 
     /**

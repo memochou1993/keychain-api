@@ -38,6 +38,27 @@ class UserRequest extends FormRequest
                     ],
                 ];
 
+            case 'users.store':
+                return [
+                    'name' => [
+                        'required',
+                    ],
+                    'username' => [
+                        'min:8',
+                        'required',
+                        Rule::unique('users'),
+                    ],
+                    'email' => [
+                        'email',
+                        'required',
+                        Rule::unique('users'),
+                    ],
+                    'password' => [
+                        'min:8',
+                        'required',
+                    ],
+                ];
+
             case 'users.update':
                 return [
                     'name' => [

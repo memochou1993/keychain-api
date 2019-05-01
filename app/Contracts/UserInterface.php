@@ -11,6 +11,11 @@ interface UserInterface
     public function getUser(int $id);
 
     /**
+     * @return \App\User
+     */
+    public function storeUser();
+
+    /**
      * @param  int  $id
      * @return \App\User
      */

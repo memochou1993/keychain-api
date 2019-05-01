@@ -41,8 +41,6 @@ class UserController extends Controller
         $this->request = $request;
 
         $this->reposotory = $reposotory;
-
-        $this->authorizeResource(User::class);
     }
 
     /**
@@ -62,7 +60,9 @@ class UserController extends Controller
      */
     public function store()
     {
-        //
+        $user = $this->reposotory->storeUser();
+
+        return new Resource($user);
     }
 
     /**
@@ -73,6 +73,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view', $user);
+
         $user = $this->reposotory->getUser($user->id);
 
         return new Resource($user);
@@ -86,6 +88,8 @@ class UserController extends Controller
      */
     public function update(User $user)
     {
+        $this->authorize('update', $user);
+
         $user = $this->reposotory->updateUser($user->id);
 
         return new Resource($user);

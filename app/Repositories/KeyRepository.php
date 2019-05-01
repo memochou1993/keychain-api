@@ -55,9 +55,11 @@ class KeyRepository implements KeyInterface
      */
     public function getKey(int $id)
     {
-        return $this->key
+        $key = $this->key
             ->with($this->with)
             ->findOrFail($id);
+
+        return $key;
     }
 
     /**
