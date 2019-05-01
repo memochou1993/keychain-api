@@ -115,6 +115,7 @@ class AuthController extends Controller
                 ],
                 'form_params' => [
                     'name' => $this->request->name,
+                    'username' => $this->request->username,
                     'password' => $this->request->new_password,
                 ],
             ]);
