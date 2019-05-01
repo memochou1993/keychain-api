@@ -39,6 +39,18 @@ class User extends Authenticatable
     ];
 
     /**
+     * @param  $username
+     * @return mixed
+     */
+    public function findForPassport($username) {
+        $field = filter_var($username, FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'username';
+
+        return $this->where($field, $username)->first();
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
     public function keys()
