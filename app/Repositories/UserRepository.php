@@ -66,7 +66,9 @@ class UserRepository implements UserInterface
      */
     public function storeUser()
     {
-        $user = $this->user->create($this->request->all());
+        $user = $this->user->create($this->request->merge([
+            'password' => Hash::make($this->request->password),
+        ])->all());
 
         return $user;
     }
