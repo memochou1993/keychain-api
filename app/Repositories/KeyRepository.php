@@ -92,7 +92,9 @@ class KeyRepository implements KeyInterface
                 if (!$q) {
                     return;
                 }
-                $query->where('title', 'like', "%{$q}%");
+                $query
+                    ->where('title', 'like', "%{$q}%")
+                    ->orWhere('content', 'like', "%{$q}%");
             })
             ->with($this->with)
             ->orderBy('id', 'desc')
