@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Key;
 use App\User;
+use App\Helpers\KeyHelper;
 use App\Contracts\KeyInterface;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\KeyRequest as Request;
@@ -94,7 +95,7 @@ class KeyRepository implements KeyInterface
                 }
                 $query
                     ->where('title', 'like', "%{$q}%")
-                    ->orWhere('content', 'like', "%{$q}%");
+                    ->orWhere('tags', 'like', "%{$q}%");
             })
             ->with($this->with)
             ->orderBy('id', 'desc')
@@ -128,6 +129,7 @@ class KeyRepository implements KeyInterface
             ->keys()
             ->create($this->request->merge([
                 'content' => Crypt::encrypt($this->request->content),
+                'tags' => implode(',', KeyHelper::getTags($this->request->content)),
                 'password' => $this->request->lock,
             ])->all());
 
@@ -145,6 +147,7 @@ class KeyRepository implements KeyInterface
 
         $key->update($this->request->merge([
             'content' => Crypt::encrypt($this->request->content),
+            'tags' => implode(',', KeyHelper::getTags($this->request->content)),
             'password' => $this->request->lock ? $user->password : '',
         ])->all());
 

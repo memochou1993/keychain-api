@@ -27,7 +27,7 @@ class KeyRequest extends FormRequest
         $route = $this->route() ? $this->route()->getName() : null;
 
         switch($route) {
-            case 'keys.index':
+            case 'users.me.keys.index':
                 return [
                     'with' => [
                         new ElementsInArray([
@@ -46,7 +46,7 @@ class KeyRequest extends FormRequest
                     ],
                 ];
 
-            case 'keys.show':
+            case 'users.me.keys.show':
                 return [
                     'with' => [
                         new ElementsInArray([
@@ -56,8 +56,8 @@ class KeyRequest extends FormRequest
                     ],
                 ];
 
-            case 'keys.store':
-            case 'keys.update':
+            case 'users.me.keys.store':
+            case 'users.me.keys.update':
                 return [
                     'title' => [
                         'required',

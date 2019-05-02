@@ -18,6 +18,7 @@ class CreateKeysTable extends Migration
             $table->string('title')->index();
             $table->text('content');
             $table->string('link')->nullable();
+            $table->string('tags')->nullable();
             $table->string('password')->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
