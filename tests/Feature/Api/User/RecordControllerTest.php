@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Api\User;
 
-use App\User;
 use App\Key;
+use App\User;
 use Tests\TestCase;
 use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -65,7 +65,7 @@ class KeyControllerTest extends TestCase
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->post(
-            "/api/users/me/keys?with=user",
+            "/api/users/me/keys",
             collect($key)->merge([
                 'user',
             ])->toArray()
@@ -74,13 +74,11 @@ class KeyControllerTest extends TestCase
         // $this->dd($response);
 
         $response
-            ->assertStatus(200)
+            ->assertStatus(201)
             ->assertJsonStructure([
-                'data' => collect($this->key)->except([
+                'data' => collect($key)->except([
                     'user_id',
-                ])->keys()->merge([
-                    'user',
-                ])->toArray(),
+                ])->keys()->toArray(),
             ]);
     }
 
@@ -94,7 +92,7 @@ class KeyControllerTest extends TestCase
         ])->post(
             "/api/users/me/keys/{$key->id}?with=user",
             [
-                'password' => 'secret',
+                'password' => 'password',
             ]
         );
 
@@ -105,9 +103,7 @@ class KeyControllerTest extends TestCase
             ->assertJsonStructure([
                 'data' => collect($key)->except([
                     'user_id',
-                ])->keys()->merge([
-                    'user',
-                ])->toArray(),
+                ])->keys()->toArray(),
             ]);
     }
 
@@ -119,7 +115,7 @@ class KeyControllerTest extends TestCase
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->patch(
-            "/api/users/me/keys/{$key->id}?with=user",
+            "/api/users/me/keys/{$key->id}",
             collect($key)->toArray()
         );
 
@@ -130,9 +126,7 @@ class KeyControllerTest extends TestCase
             ->assertJsonStructure([
                 'data' => collect($key)->except([
                     'user_id',
-                ])->keys()->merge([
-                    'user',
-                ])->toArray(),
+                ])->keys()->toArray(),
             ]);
     }
 

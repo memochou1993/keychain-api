@@ -128,7 +128,7 @@ class KeyRepository implements KeyInterface
             ->keys()
             ->create($request);
 
-        return $this->getKey($key->id);
+        return $key;
     }
 
     /**
@@ -140,7 +140,7 @@ class KeyRepository implements KeyInterface
     {
         $key->update($request);
 
-        return $this->getKey($key->id);
+        return $key;
     }
 
     /**

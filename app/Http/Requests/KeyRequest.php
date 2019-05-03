@@ -65,12 +65,6 @@ class KeyRequest extends FormRequest
                     'content' => [
                         'required',
                     ],
-                    'with' => [
-                        new ElementsInArray([
-                            'user',
-                        ]),
-                        'nullable',
-                    ],
                 ];
 
             default:

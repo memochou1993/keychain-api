@@ -19,7 +19,7 @@ abstract class TestCase extends BaseTestCase
     {
         $response = $response->getContent();
 
-        return json_decode($response)->message ?? json_decode($response);
+        return json_decode($response);
     }
 
     protected function dd($response)
