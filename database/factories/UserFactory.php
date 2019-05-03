@@ -21,7 +21,7 @@ $factory->define(User::class, function (Faker $faker) {
         'username' => $faker->username,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' => '$argon2i$v=19$m=1024,t=2,p=2$UUxxaWZ1akM1dzlmbEtiNA$+Q2+IURHJIe0xYmLds0j3x59SeC+77W6/Qp9wR85jQY', // secret
+        'password' => '$argon2i$v=19$m=1024,t=2,p=2$UThmSUxhMU12OVRwV3VaWg$OrU1Vlm51hSvU89zeCbiFTn0l335EcKBw5U6kQoE5No', // password
         'remember_token' => Str::random(10),
     ];
 });
