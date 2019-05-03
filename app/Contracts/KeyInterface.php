@@ -34,16 +34,17 @@ interface KeyInterface
 
     /**
      * @param  \App\User  $user
+     * @param  array  $request
      * @return \App\Key
      */
-    public function storeKeyByUser(User $user);
+    public function storeKeyByUser(User $user, array $request);
 
     /**
-     * @param  \App\User  $user
-     * @param  int  $id
+     * @param  \App\Key  $key
+     * @param  array  $request
      * @return \App\Key
      */
-    public function updateKeyByUser(User $user, int $id);
+    public function updateKey(Key $key, array $request);
 
     /**
      * @param  \App\Key  $key

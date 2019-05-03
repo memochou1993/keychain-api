@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Key;
 use App\User;
+use App\Helpers\KeyHelper;
 use Laravel\Passport\Passport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\KeyRequest as Request;
 use App\Contracts\KeyInterface as Repository;
 use App\Http\Resources\KeyResource as Resource;
@@ -68,7 +70,11 @@ class KeyController extends Controller
      */
     public function store()
     {
-        $key = $this->reposotory->storeKeyByUser($this->user);
+        $key = $this->reposotory->storeKeyByUser($this->user, $this->request->merge([
+            'content' => Crypt::encrypt($this->request->content),
+            'tags' => implode(',', KeyHelper::getTags($this->request->content)),
+            'password' => $this->request->lock,
+        ])->all());
 
         return new Resource($key);
     }
@@ -98,7 +104,11 @@ class KeyController extends Controller
      */
     public function update(Key $key)
     {
-        $key = $this->reposotory->updateKeyByUser($this->user, $key->id);
+        $key = $this->reposotory->updateKey($key, $this->request->merge([
+            'content' => Crypt::encrypt($this->request->content),
+            'tags' => implode(',', KeyHelper::getTags($this->request->content)),
+            'password' => $this->request->lock ? $this->user->password : '',
+        ])->all());
 
         return new Resource($key);
     }

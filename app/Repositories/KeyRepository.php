@@ -4,9 +4,7 @@ namespace App\Repositories;
 
 use App\Key;
 use App\User;
-use App\Helpers\KeyHelper;
 use App\Contracts\KeyInterface;
-use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\KeyRequest as Request;
 
 class KeyRepository implements KeyInterface
@@ -121,37 +119,28 @@ class KeyRepository implements KeyInterface
 
     /**
      * @param  \App\User  $user
+     * @param  array  $request
      * @return \App\Key
      */
-    public function storeKeyByUser(User $user)
+    public function storeKeyByUser(User $user, array $request)
     {
         $key = $user
             ->keys()
-            ->create($this->request->merge([
-                'content' => Crypt::encrypt($this->request->content),
-                'tags' => implode(',', KeyHelper::getTags($this->request->content)),
-                'password' => $this->request->lock,
-            ])->all());
+            ->create($request);
 
         return $this->getKey($key->id);
     }
 
     /**
-     * @param  \App\User  $user
-     * @param  int  $id
+     * @param  \App\Key  $key
+     * @param  array  $request
      * @return \App\Key
      */
-    public function updateKeyByUser(User $user, int $id)
+    public function updateKey(Key $key, array $request)
     {
-        $key = $this->getKey($id);
+        $key->update($request);
 
-        $key->update($this->request->merge([
-            'content' => Crypt::encrypt($this->request->content),
-            'tags' => implode(',', KeyHelper::getTags($this->request->content)),
-            'password' => $this->request->lock ? $user->password : '',
-        ])->all());
-
-        return $key;
+        return $this->getKey($key->id);
     }
 
     /**
