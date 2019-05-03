@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\User;
+use App\Jobs\CreateExampleKey;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest as Request;
 use App\Contracts\UserInterface as Repository;
@@ -61,6 +62,8 @@ class UserController extends Controller
     public function store()
     {
         $user = $this->reposotory->storeUser();
+
+        $this->dispatch(new CreateExampleKey($user));
 
         return new Resource($user);
     }
