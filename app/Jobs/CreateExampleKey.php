@@ -3,8 +3,8 @@
 namespace App\Jobs;
 
 use App\User;
+use App\Helpers\KeyHelper;
 use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -42,11 +42,6 @@ class CreateExampleKey implements ShouldQueue
      */
     public function handle(Repository $reposotory)
     {
-        $reposotory->storeKeyByUser($this->user, [
-            'title' => 'title',
-            'content' => Crypt::encrypt('content'),
-            'tags' => '#tag',
-            'password' => true,
-        ]);
+        $reposotory->storeKeyByUser($this->user, KeyHelper::getExampleKey());
     }
 }
