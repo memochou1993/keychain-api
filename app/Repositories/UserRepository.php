@@ -82,8 +82,6 @@ class UserRepository implements UserInterface
         $user = $this->getUser($id);
 
         $user->update($this->request->merge([
-            'name' => $this->request->name,
-            'username' => $this->request->username,
             'password' => $this->request->password ? Hash::make($this->request->password) : $user->password,
         ])->all());
 

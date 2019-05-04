@@ -29,6 +29,7 @@ class AuthRequest extends FormRequest
             case 'auth.password.reset':
                 return [
                     'old_password' => [
+                        'min:8',
                         'required',
                     ],
                     'new_password' => [

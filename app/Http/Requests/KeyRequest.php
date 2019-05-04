@@ -36,13 +36,11 @@ class KeyRequest extends FormRequest
                         'nullable',
                     ],
                     'paginate' => [
-                        'integer',
                         'min:1',
-                        'nullable',
+                        'integer',
                     ],
                     'scout' => [
                         'boolean',
-                        'nullable',
                     ],
                 ];
 

@@ -61,17 +61,16 @@ class UserRequest extends FormRequest
 
             case 'users.update':
                 return [
-                    'name' => [
-                        'required',
-                    ],
                     'username' => [
                         'min:8',
-                        'required',
+                        Rule::unique('users')->ignore($this->user),
+                    ],
+                    'email' => [
+                        'email',
                         Rule::unique('users')->ignore($this->user),
                     ],
                     'password' => [
                         'min:8',
-                        'nullable',
                     ],
                 ];
 
