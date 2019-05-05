@@ -17,7 +17,7 @@ return [
             'keepDays' => 7,
             'paging' => 'loadMoreButton',
             'paginate' => 15,
-            'theme' => 'indigo',
+            'theme' => '',
         ]),
     ],
 
