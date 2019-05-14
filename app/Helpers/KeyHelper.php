@@ -13,7 +13,7 @@ class KeyHelper
      */
     public static function getTags(string $content)
     {
-        preg_match_all('/(^|\s)(#[a-z|\p{Han}]+\b)/ui', $content, $tags);
+        preg_match_all('/(^|\s)(#[a-z0-9|\p{Han}]+\b)/ui', $content, $tags);
 
         return $tags[2];
     }
