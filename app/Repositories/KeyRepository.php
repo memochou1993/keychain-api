@@ -96,7 +96,8 @@ class KeyRepository implements KeyInterface
                     ->orWhere('tags', 'like', "%{$q}%");
             })
             ->with($this->with)
-            ->orderBy('id', 'desc')
+            ->orderBy('title')
+            ->orderBy('tags')
             ->paginate($this->paginate);
 
         return $keys;
