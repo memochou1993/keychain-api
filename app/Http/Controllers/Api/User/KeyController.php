@@ -73,7 +73,7 @@ class KeyController extends Controller
         $key = $this->reposotory->storeKeyByUser($this->user, $this->request->merge([
             'content' => Crypt::encrypt($this->request->content),
             'tags' => implode(',', KeyHelper::getTags($this->request->content)),
-            'password' => $this->request->lock,
+            'password' => $this->request->lock ? $this->user->password : '',
         ])->all());
 
         return new Resource($key);
