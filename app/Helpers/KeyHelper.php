@@ -36,7 +36,7 @@ class KeyHelper
             'content' => Crypt::encrypt($content),
             'tags' => '#inspire',
             'link' => 'https://www.google.com.tw/search?q='.substr(strrchr($content, '- '), 1),
-            'password' => false,
+            'password' => '',
         ];
 
         return $key;
