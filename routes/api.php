@@ -22,9 +22,9 @@ Route::prefix('auth')->name('auth.')->group(function () {
 });
 
 Route::post('users', 'UserController@store')->name('users.store');
-Route::resource('users', 'UserController')->middleware('auth:api')->except(['create', 'store', 'edit']);
+Route::apiResource('users', 'UserController')->middleware('auth:api')->except(['store']);
 
 Route::namespace('User')->middleware('auth:api')->prefix('users/me')->name('users.me.')->group(function () {
     Route::post('keys/{key}', 'KeyController@show')->middleware('throttle:20,1')->name('keys.show');
-    Route::resource('keys', 'KeyController')->except(['create', 'show', 'edit']);
+    Route::apiResource('keys', 'KeyController')->except(['edit']);
 });
