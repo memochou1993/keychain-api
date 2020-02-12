@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  app:
+    container_name: keychain-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./storage:/var/www/storage
+    env_file: .env
+    networks:
+      - backend
+
+  web:
+    image: nginx:alpine
+    container_name: nginx
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "8001:80"
+    networks:
+      - backend
+
+  database:
+    image: mysql:5.7
+    container_name: mysql
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=laravel"
+      - "MYSQL_ROOT_PASSWORD=root"
+
+networks:
+  backend:
+
+volumes:
+  dbdata:
