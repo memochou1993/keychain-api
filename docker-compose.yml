@@ -26,10 +26,14 @@ services:
     image: mysql:latest
     container_name: mysql
     volumes:
-      - dbdata:/var/lib/mysql
+      - mysql:/var/lib/mysql
     environment:
-      - "MYSQL_DATABASE=keychain"
-      - "MYSQL_ROOT_PASSWORD=root"
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "3307:3306"
     networks:
       - backend
 
@@ -37,4 +41,4 @@ networks:
   backend:
 
 volumes:
-  dbdata:
+  mysql:
