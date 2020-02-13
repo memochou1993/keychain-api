@@ -5,9 +5,9 @@ RUN apt-get update \
 
 WORKDIR /var/www
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 COPY . /var/www
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN composer install --optimize-autoloader --no-dev --no-scripts
 

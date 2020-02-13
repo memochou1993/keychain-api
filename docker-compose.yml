@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./storage:/var/www/storage
+      - ./:/var/www
     env_file: .env
     networks:
       - backend
