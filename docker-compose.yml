@@ -9,6 +9,9 @@ services:
     volumes:
       - ./:/var/www
     env_file: .env
+    depends_on:
+      - web
+      - database
     networks:
       - backend
 
