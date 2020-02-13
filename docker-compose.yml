@@ -10,7 +10,6 @@ services:
       - ./:/var/www
     env_file: .env
     depends_on:
-      - web
       - database
     networks:
       - backend
@@ -20,6 +19,8 @@ services:
     container_name: nginx
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
     ports:
       - "8001:80"
     networks:
