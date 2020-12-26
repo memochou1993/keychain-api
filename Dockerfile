@@ -12,6 +12,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer install --optimize-autoloader --no-dev --no-scripts
 RUN composer update --no-scripts
 
+RUN php artisan passport:keys
+
 RUN chown -R www-data:www-data \
     /var/www/storage \
     /var/www/bootstrap/cache
