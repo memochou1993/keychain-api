@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('auth')->name('auth.')->group(function () {
+Route::namespace('Auth')->prefix('auth')->name('auth.')->group(function () {
     Route::post('register', 'AuthController@register')->name('register');
     Route::post('login', 'AuthController@login')->middleware('throttle:20,1')->name('login');
     Route::post('logout', 'AuthController@logout')->name('logout')->middleware('auth:api');
