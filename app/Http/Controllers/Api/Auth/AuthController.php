@@ -54,6 +54,30 @@ class AuthController extends Controller
      */
     public function login()
     {
+        if (env('RECAPTCHA_ENABLED')) {
+            try {
+                $client = new Client();
+
+                $response = $client->post(env('RECAPTCHA_API_URL'), [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                    ],
+                    'form_params' => [
+                        'secret' => env('RECAPTCHA_SECRET_KEY'),
+                        'response' => $this->request->token,
+                    ],
+                ]);
+
+                $result = json_decode($response->getBody()->getContents(), true);
+
+                if (!$result['success']) {
+                    return abort(403, collect($result['error-codes'])->first());
+                }
+            } catch (ClientException $e) {
+                return $e->getResponse();
+            }
+        }
+
         try {
             $client = new Client([
                 'base_uri' => config('app.url'),
