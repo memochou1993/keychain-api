@@ -12,6 +12,7 @@ services:
   nginx:
     image: nginx:stable-alpine
     container_name: keychain-nginx
+    restart: always
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
     depends_on:
